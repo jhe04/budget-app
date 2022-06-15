@@ -1,22 +1,41 @@
 import './App.css';
 import firebase from './firebase';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, update, push } from 'firebase/database';
 import { useEffect, useState } from 'react';
 import BudgetCapInput from './BudgetCapInput';
 import BudgetOverview from './BudgetOverview';
+import NewBudgetEntry from './NewBudgetEntry';
+import DisplayBudgetEntries from './DisplayBudgetEntries';
 
 function App() {
   //states
   const [budgetCap, setBudgetCap] = useState(null);
+  const [entries, setEntries] = useState([]);
 
+  //firebase
+  const database = getDatabase(firebase);
+  const dbRef = ref(database);
+  const entryRef = ref(database, '/budgetEntries');
+
+  //on loading
   useEffect(() => {
-    //firebase
-    const database = getDatabase(firebase);
-    const dbRef = ref(database);
-
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       setBudgetCap(data.budgetCap);
+
+      //setEntries
+      const entriesArray = [];
+      for (const entry in data.budgetEntries) {
+        entriesArray.push({
+          key: entry,
+          amount: data.budgetEntries[entry].amount,
+          category: data.budgetEntries[entry].category,
+          date: data.budgetEntries[entry].date,
+        });
+      }
+      setEntries(entriesArray);
+
+      //setAmount
     });
   }, []);
 
@@ -25,18 +44,32 @@ function App() {
     e.preventDefault();
     if (budget) {
       setBudgetCap(budget);
+      update(dbRef, { budgetCap: budget });
+    }
+  };
+
+  //submit handler for NewBudgetEntry
+  const submitNewEntry = function (e, amount, category, date) {
+    e.preventDefault();
+    if (amount && category) {
+      push(entryRef, { amount: amount, category: category, date: date });
     }
   };
 
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <h1>Budget App</h1>
+
       {/* If there is no budget cap set, display the component for setting budget cap */}
       {!budgetCap ? (
         <BudgetCapInput handleSubmit={submitBudgetCap} />
       ) : (
         <BudgetOverview budgetCap={budgetCap} />
       )}
+
+      <NewBudgetEntry handleSubmit={submitNewEntry} />
+
+      <DisplayBudgetEntries entries={entries} />
     </div>
   );
 }

@@ -12,3 +12,19 @@
   display: flex;
   justify-content: space-around;
 }
+
+.newEntryForm {
+  display: flex;
+  justify-content: space-around;
+}
+
+.amountInput,
+.categoryInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.entry-card {
+  display: flex;
+  justify-content: space-around;
+}
