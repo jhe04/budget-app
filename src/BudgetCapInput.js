@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 const BudgetCapInput = (props) => {
-  const [budget, setBudget] = useState("");
+  const [budget, setBudget] = useState('');
+  
 
   const handleChange = (e) => {
     setBudget(Number(e.target.value));
@@ -15,6 +16,7 @@ const BudgetCapInput = (props) => {
           setBudget('');
         }}
         action=""
+        className="budgetCapInput"
       >
         <label htmlFor="budgetCap">What is your monthly budget?</label>
         <input

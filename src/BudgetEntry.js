@@ -4,9 +4,10 @@ const BudgetEntry = (props) => {
       <tr>
         <td className="date">{props.date}</td>
         <td className="amount">${props.amount.toFixed(2)}</td>
+        <td className="description">{props.description}</td>
         <td className="category">{props.category}</td>
         <td>
-          <button>delete</button>
+          <button onClick={() => props.handleClick(props.id)}>delete</button>
         </td>
       </tr>
     </>
