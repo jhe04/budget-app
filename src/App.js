@@ -1,114 +1,28 @@
 import './App.css';
-import firebase from './firebase';
-import {
-  getDatabase,
-  ref,
-  onValue,
-  update,
-  push,
-  remove,
-} from 'firebase/database';
-import { useEffect, useState } from 'react';
-import BudgetCapInput from './BudgetCapInput';
-import BudgetOverview from './BudgetOverview';
-import NewBudgetEntry from './NewBudgetEntry';
-import DisplayBudgetEntries from './DisplayBudgetEntries';
+import { Link, Route, Routes } from 'react-router-dom';
+
+//components to display
+import CreateNewBudgetSheet from './components/CreateNewBudgetSheet';
+import DisplayAllBudgetSheets from './components/DisplayAllBudgetSheets';
+import Homepage from './components/Homepage';
+import DisplayBudgetSheet from './components/DisplayBudgetSheet';
 
 function App() {
-  //states
-  const [budgetCap, setBudgetCap] = useState(null);
-  const [entries, setEntries] = useState([]);
-  const [totalSpending, setTotalSpending] = useState(null);
-
-  //firebase
-  const database = getDatabase(firebase);
-  const dbRef = ref(database);
-  const entryRef = ref(database, '/budgetEntries');
-
-  //on loading
-  useEffect(() => {
-    const database = getDatabase(firebase);
-    const dbRef = ref(database);
-    onValue(dbRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data?.budgetCap) {
-        setBudgetCap(data.budgetCap);
-      }
-
-      //setEntries
-      const entriesArray = [];
-      for (const entry in data.budgetEntries) {
-        entriesArray.push({
-          key: entry,
-          amount: data.budgetEntries[entry].amount,
-          category: data.budgetEntries[entry].category,
-          date: data.budgetEntries[entry].date,
-          description: data.budgetEntries[entry].description,
-        });
-      }
-      setEntries(entriesArray);
-    });
-  }, []);
-
-  //total spending
-  useEffect(() => {
-    const total = entries.reduce((prev, curr) => {
-      return prev + curr.amount;
-    }, 0);
-    setTotalSpending(total);
-  }, [entries]);
-
-  //submit handler for BudgetCapInput
-  const submitBudgetCap = function (e, budget) {
-    e.preventDefault();
-    if (budget) {
-      setBudgetCap(budget);
-      update(dbRef, { budgetCap: budget });
-    }
-  };
-
-  //submit handler for NewBudgetEntry
-  const submitNewEntry = function (e, amount, category, date, description) {
-    e.preventDefault();
-    if (amount && category) {
-      push(entryRef, {
-        amount: amount,
-        category: category,
-        date: date,
-        description: description,
-      });
-    }
-  };
-
-  //handler for removing entry
-  const removeEntry = (key) => {
-    const removeRef = ref(database, `budgetEntries/${key}`);
-    remove(removeRef);
-  };
-
-  //handler for editing budget cap
-  const editBudgetCap = (amount) => {
-    setBudgetCap(amount);
-    update(dbRef, { budgetCap: amount });
-  };
-
   return (
     <div className="App">
-      <h1>Budget App</h1>
+      <header>
+        <Link to="/">
+          <h1>Budget App</h1>
+        </Link>
+      </header>
 
-      {/* If there is no budget cap set, display the component for setting budget cap */}
-      {!budgetCap ? (
-        <BudgetCapInput handleSubmit={submitBudgetCap} />
-      ) : (
-        <BudgetOverview
-          budgetCap={budgetCap}
-          totalSpending={totalSpending}
-          editBudgetCap={editBudgetCap}
-        />
-      )}
-      <NewBudgetEntry handleSubmit={submitNewEntry} />
-
-      <DisplayBudgetEntries entries={entries} removeEntry={removeEntry} />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="new-budget-sheet" element={<CreateNewBudgetSheet />} />
+        <Route path="budget-sheets/*" element={<DisplayAllBudgetSheets />}>
+          <Route path=":sheetId" element={<DisplayBudgetSheet />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

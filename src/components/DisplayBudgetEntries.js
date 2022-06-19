@@ -1,10 +1,10 @@
-import BudgetEntry from './BudgetEntry';
+import DisplayBudgetEntry from './DisplayBudgetEntry';
 
-const DisplayBudgetEntries = ({ entries, removeEntry }) => {
+const DisplayBudgetEntries = ({ data, removeEntry }) => {
   return (
     <>
       <h2>List of Entries</h2>
-      <table className="container">
+      <table>
         <tbody>
           <tr>
             <td>
@@ -20,16 +20,13 @@ const DisplayBudgetEntries = ({ entries, removeEntry }) => {
               <h3>Category</h3>
             </td>
           </tr>
-          {entries.map((entry) => {
+          {data.map((entry) => {
             return (
-              <BudgetEntry
-                date={entry.date}
-                amount={entry.amount}
-                category={entry.category}
-                key={entry.key}
-                id={entry.key}
+              <DisplayBudgetEntry
                 handleClick={removeEntry}
-                description={entry.description}
+                data={entry}
+                key={entry.id}
+                id={entry.id}
               />
             );
           })}

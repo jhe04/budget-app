@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import createDate from './createDate';
+import createDate from '../createDate';
 
-const NewBudgetEntry = (props) => {
+const NewBudgetEntryForm = (props) => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
@@ -25,7 +25,7 @@ const NewBudgetEntry = (props) => {
 
   return (
     <form
-      className="newEntryForm container"
+      className="newEntryForm"
       onSubmit={(e) => {
         props.handleSubmit(e, amount, category, date, description);
         setAmount('');
@@ -84,4 +84,4 @@ const NewBudgetEntry = (props) => {
   );
 };
 
-export default NewBudgetEntry;
+export default NewBudgetEntryForm;

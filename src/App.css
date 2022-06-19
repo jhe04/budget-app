@@ -213,57 +213,39 @@ template {
   text-align: center;
 }
 
+/* default styling removal */
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  color: red;
+}
+
+header {
+  text-align: left;
+}
+
 .container {
   width: 85%;
   max-width: 1080px;
   margin: 0 auto;
 }
 
+table {
+  width: 100%;
+}
+
+.newEntryForm,
 .budgetOverview {
-  min-height: 20vh;
   display: flex;
   justify-content: space-around;
+}
+
+.budgetOverview {
   align-items: center;
-}
-
-.budgetOverview h2,
-.budgetOverview p {
-  margin: 10px 0;
-}
-
-.budgetCap input[type='number'] {
-  width: 100px;
-}
-
-.overviewButtons {
-  display: flex;
-  flex-direction: column;
-  width: 15%;
-  row-gap: 20px;
-}
-
-.budgetCapInput {
-  min-height: 20vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.newEntryForm {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 50px;
-}
-
-.amountInput,
-.categoryInput,
-.descriptionInput {
-  display: flex;
-  flex-direction: column;
-}
-
-.entry-card {
-  display: flex;
-  justify-content: space-around;
 }

@@ -20,14 +20,14 @@ const BudgetOverview = (props) => {
   };
 
   return (
-    <div className="budgetOverview container">
+    <div className="budgetOverview">
       {/* DIFFERENT ROWS OF THINGS */}
 
       <div className="budgetCap">
         <h2>Total Budget</h2>
         <p>
           {!isEditing ? (
-            `$${props.budgetCap.toFixed(2)}`
+            `$${props.budgetCap}`
           ) : (
             <input
               onKeyDown={(e) => {
@@ -46,12 +46,12 @@ const BudgetOverview = (props) => {
 
       <div className="currentSpending">
         <h2>Total Spending</h2>
-        <p>${props.totalSpending.toFixed(2)}</p>
+        <p>${props.totalSpending}</p>
       </div>
 
       <div className="remainder">
         <h2>Remainder</h2>
-        <p>${remainder.toFixed(2)}</p>
+        <p>${remainder}</p>
       </div>
 
       {!isEditing ? (
