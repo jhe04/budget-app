@@ -1,4 +1,3 @@
-import { remove } from 'firebase/database';
 import BudgetEntry from './BudgetEntry';
 
 const DisplayBudgetEntries = ({ entries, removeEntry }) => {

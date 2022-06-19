@@ -27,6 +27,8 @@ function App() {
 
   //on loading
   useEffect(() => {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       if (data?.budgetCap) {
