@@ -56,12 +56,6 @@ const NewBudgetEntryForm = (props) => {
 
       <div className="categoryInput">
         <label htmlFor="category">Category</label>
-        {/* <input
-          value={category}
-          onChange={handleCategoryChange}
-          type="text"
-          id="category"
-        /> */}
         <select
           onChange={handleCategoryChange}
           value={category}
@@ -71,11 +65,16 @@ const NewBudgetEntryForm = (props) => {
           <option disabled value="">
             Select an option:
           </option>
-          <option value="Fixed Expenses">Fixed Expenses</option>
-          <option value="Restaurant">Restaurant</option>
-          <option value="Grocery">Grocery</option>
-          <option value="Discretionary">Discretionary</option>
-          <option value="Other">Other</option>
+          {/* this is to account for the async data loading after my component renders */}
+          {props.categories && props.categories.length > 0
+            ? props.categories.map((category) => {
+                return (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                );
+              })
+            : ''}
         </select>
       </div>
 

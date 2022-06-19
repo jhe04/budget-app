@@ -11,9 +11,21 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Link to="/">
-          <h1>Budget App</h1>
-        </Link>
+        <nav>
+          <div className="main-title">
+            <Link to="/">
+              <h1>Budget App</h1>
+            </Link>
+          </div>
+          <ul className="nav-links">
+            <li>
+              <Link to="/new-budget-sheet">Create New Sheet</Link>
+            </li>
+            <li>
+              <Link to="/budget-sheets">All Budget Sheets</Link>
+            </li>
+          </ul>
+        </nav>
       </header>
 
       <Routes>

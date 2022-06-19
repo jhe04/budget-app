@@ -209,10 +209,6 @@ template {
 
 /* STYLING FOR APP ================ */
 
-.App {
-  text-align: center;
-}
-
 /* default styling removal */
 ul {
   list-style-type: none;
@@ -226,10 +222,6 @@ a:hover {
   color: red;
 }
 
-header {
-  text-align: left;
-}
-
 .container {
   width: 85%;
   max-width: 1080px;
@@ -240,6 +232,41 @@ table {
   width: 100%;
 }
 
+h2 {
+  text-align: center;
+}
+
+/* nav bar */
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 50px;
+}
+
+.nav-links a {
+  padding: 20px;
+}
+
+/* Homepage */
+.homepage {
+  text-align: center;
+  position: relative;
+}
+
+.homepage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Displaying specific sheet */
+
 .newEntryForm,
 .budgetOverview {
   display: flex;
@@ -248,4 +275,25 @@ table {
 
 .budgetOverview {
   align-items: center;
+}
+
+/* ListAllBudgetSheets */
+
+.budget-sheet-link-overview {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* create new budget sheet */
+.create-new-sheet {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.add-categories .field {
+  display: flex;
+}
+
+.create-new-sheet .submit-button {
+  margin-top: 20px;
 }

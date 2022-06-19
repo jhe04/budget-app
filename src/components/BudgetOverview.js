@@ -27,7 +27,7 @@ const BudgetOverview = (props) => {
         <h2>Total Budget</h2>
         <p>
           {!isEditing ? (
-            `$${props.budgetCap}`
+            `$${props.budgetCap.toLocaleString('en-US')}`
           ) : (
             <input
               onKeyDown={(e) => {
@@ -46,12 +46,12 @@ const BudgetOverview = (props) => {
 
       <div className="currentSpending">
         <h2>Total Spending</h2>
-        <p>${props.totalSpending}</p>
+        <p>${props.totalSpending.toLocaleString('en-US')}</p>
       </div>
 
       <div className="remainder">
         <h2>Remainder</h2>
-        <p>${remainder}</p>
+        <p>${remainder.toLocaleString('en-US')}</p>
       </div>
 
       {!isEditing ? (

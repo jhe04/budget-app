@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const ListAllBudgetSheets = () => {
-  const [entries, setEntries] = useState([]);
+  const [budgetSheets, setBudgetSheets] = useState([]);
 
   //get all budget sheets
   useEffect(() => {
@@ -19,7 +19,6 @@ const ListAllBudgetSheets = () => {
     const dbRef = ref(database);
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
 
       const entriesArray = [];
       for (const sheet in data) {
@@ -28,26 +27,58 @@ const ListAllBudgetSheets = () => {
           data: data[sheet],
         });
       }
-      setEntries(entriesArray);
+      setBudgetSheets(entriesArray);
     });
   }, []);
 
+  //delete a budget sheet
+  const deleteSheet = (key) => {
+    const database = getDatabase(firebase);
+    const removeRef = ref(database, `/${key}`);
+    remove(removeRef);
+  };
+
   return (
-    <>
+    <div className="container list-all-budget-sheets">
       <h2>Budget Sheet List</h2>
       <ul>
-        {entries.map((entry) => {
+        {budgetSheets.map((entry) => {
+          //code to get a total spent amount
+          const amountsArray = [];
+          for (const amounts in entry.data.budgetEntries) {
+            amountsArray.push(entry.data.budgetEntries[amounts].amount);
+          }
+          const total = amountsArray.reduce((prev, curr) => {
+            return prev + curr;
+          }, 0);
+
+          //returning actual jsx
           return (
-            <li>
-              <div>
-                <Link to={`/budget-sheets/${entry.id}`}>{entry.data.name}</Link>
-                <p>Budget: ${entry.data.budgetCap.toFixed(2)}</p>
+            <li className="ui segment" key={entry.id}>
+              <div className="budget-sheet-link-overview">
+                <p>{entry.data.name}</p>
+                <p>Budget: ${entry.data.budgetCap.toLocaleString('en-US')}</p>
+                <p>Total Spent: ${total.toLocaleString('en-US')}</p>
+                <p>
+                  {' '}
+                  Remainder: $
+                  {(entry.data.budgetCap - total).toLocaleString('en-US')}
+                </p>
               </div>
+              <button>
+                <Link
+                  to={`/budget-sheets/${entry.id}`}
+                  className="budget-sheet-link"
+                >
+                  View
+                </Link>
+              </button>
+              <button onClick={()=>deleteSheet(entry.id)} >Delete Sheet</button>
             </li>
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 

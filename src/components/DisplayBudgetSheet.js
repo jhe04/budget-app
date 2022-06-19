@@ -21,13 +21,13 @@ const BudgetSheet = (props) => {
   const [budgetCap, setBudgetCap] = useState('');
   const [totalSpending, setTotalSpending] = useState('');
   const [name, setName] = useState('');
+  const [categories, setCategories] = useState('');
 
   useEffect(() => {
     const database = getDatabase(firebase);
     const dbRef = ref(database, `/${sheetId}`);
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
       setBudgetCap(data.budgetCap);
 
       const entriesArray = [];
@@ -43,6 +43,7 @@ const BudgetSheet = (props) => {
 
       setEntries(entriesArray);
       setName(data.name);
+      setCategories(data.categories);
     });
   }, [sheetId]);
 
@@ -94,7 +95,10 @@ const BudgetSheet = (props) => {
         editBudgetCap={editBudgetCap}
       />
 
-      <NewBudgetEntryForm handleSubmit={handleNewEntrySubmit} />
+      <NewBudgetEntryForm
+        handleSubmit={handleNewEntrySubmit}
+        categories={categories}
+      />
 
       <DisplayBudgetEntries data={entries} removeEntry={removeEntry} />
     </div>
