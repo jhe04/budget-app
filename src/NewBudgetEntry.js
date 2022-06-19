@@ -56,12 +56,27 @@ const NewBudgetEntry = (props) => {
 
       <div className="categoryInput">
         <label htmlFor="category">Category</label>
-        <input
+        {/* <input
           value={category}
           onChange={handleCategoryChange}
           type="text"
           id="category"
-        />
+        /> */}
+        <select
+          onChange={handleCategoryChange}
+          value={category}
+          name=""
+          id="category"
+        >
+          <option disabled value="">
+            Select an option:
+          </option>
+          <option value="Fixed Expenses">Fixed Expenses</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Grocery">Grocery</option>
+          <option value="Discretionary">Discretionary</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
 
       <button>Submit</button>
