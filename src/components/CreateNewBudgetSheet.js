@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,6 @@ const NewBudgetSheet = (props) => {
   const [budgetTotal, setBudgetTotal] = useState('');
   const [categoriesInput, setCategoriesInput] = useState('');
   const [categoriesArray, setCategoriesArray] = useState([]);
-  const [isDuplicateCategory, setIsDuplicateCategory] = useState(false);
 
   const handleNameInputChange = (e) => {
     setName(e.target.value);
@@ -135,9 +134,7 @@ const NewBudgetSheet = (props) => {
         <button className="ui button primary submit-button">Create</button>
       </form>
 
-      <div
-        class={`ui segment ${isDuplicateCategory ? '' : 'hidden'} error-modal`}
-      >
+      <div class={`ui segment error-modal`}>
         <p>
           Your inbox is getting full, would you like us to enable automatic
           archiving of old messages?
