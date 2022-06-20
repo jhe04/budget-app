@@ -65,7 +65,7 @@ const ListAllBudgetSheets = () => {
                   {(entry.data.budgetCap - total).toLocaleString('en-US')}
                 </p>
               </div>
-              <button>
+              <button className="ui button primary">
                 <Link
                   to={`/budget-sheets/${entry.id}`}
                   className="budget-sheet-link"
@@ -73,7 +73,12 @@ const ListAllBudgetSheets = () => {
                   View
                 </Link>
               </button>
-              <button onClick={()=>deleteSheet(entry.id)} >Delete Sheet</button>
+              <button
+                className="ui button red"
+                onClick={() => deleteSheet(entry.id)}
+              >
+                Delete Sheet
+              </button>
             </li>
           );
         })}

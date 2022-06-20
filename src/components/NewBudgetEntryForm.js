@@ -25,7 +25,7 @@ const NewBudgetEntryForm = (props) => {
 
   return (
     <form
-      className="newEntryForm"
+      className="newEntryForm ui form segment"
       onSubmit={(e) => {
         props.handleSubmit(e, amount, category, date, description);
         setAmount('');
@@ -33,7 +33,7 @@ const NewBudgetEntryForm = (props) => {
         setDescription('');
       }}
     >
-      <div className="amountInput">
+      <div className="amountInput field">
         <label htmlFor="amount">Amount</label>
         <input
           value={amount || ''}
@@ -44,7 +44,7 @@ const NewBudgetEntryForm = (props) => {
         />
       </div>
 
-      <div className="descriptionInput">
+      <div className="descriptionInput field">
         <label htmlFor="description">Description</label>
         <input
           value={description}
@@ -54,7 +54,7 @@ const NewBudgetEntryForm = (props) => {
         />
       </div>
 
-      <div className="categoryInput">
+      <div className="categoryInput field">
         <label htmlFor="category">Category</label>
         <select
           onChange={handleCategoryChange}
@@ -78,7 +78,7 @@ const NewBudgetEntryForm = (props) => {
         </select>
       </div>
 
-      <button>Submit</button>
+      <button className="ui button">Submit</button>
     </form>
   );
 };

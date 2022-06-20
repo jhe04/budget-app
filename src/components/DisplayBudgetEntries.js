@@ -4,22 +4,16 @@ const DisplayBudgetEntries = ({ data, removeEntry }) => {
   return (
     <>
       <h2>List of Entries</h2>
-      <table>
-        <tbody>
+      <table className="ui celled table">
+        <thead>
           <tr>
-            <td>
-              <h3>Date</h3>
-            </td>
-            <td>
-              <h3>Amount</h3>
-            </td>
-            <td>
-              <h3>Description</h3>
-            </td>
-            <td>
-              <h3>Category</h3>
-            </td>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
           </tr>
+        </thead>
+        <tbody>
           {data.map((entry) => {
             return (
               <DisplayBudgetEntry

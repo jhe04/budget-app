@@ -11,6 +11,7 @@ const NewBudgetSheet = (props) => {
   const [budgetTotal, setBudgetTotal] = useState('');
   const [categoriesInput, setCategoriesInput] = useState('');
   const [categoriesArray, setCategoriesArray] = useState([]);
+  const [isDuplicateCategory, setIsDuplicateCategory] = useState(false);
 
   const handleNameInputChange = (e) => {
     setName(e.target.value);
@@ -51,9 +52,9 @@ const NewBudgetSheet = (props) => {
 
   const handleRemoveCategoryClick = (e, categoryName) => {
     e.preventDefault();
-    const newCategoriesArray = categoriesArray.filter(category => {
+    const newCategoriesArray = categoriesArray.filter((category) => {
       return category !== categoryName;
-    })
+    });
     setCategoriesArray(newCategoriesArray);
   };
 
@@ -74,6 +75,7 @@ const NewBudgetSheet = (props) => {
             type="text"
             id="budget-name"
             value={name}
+            required
           />
         </div>
         <div className="field">
@@ -84,39 +86,68 @@ const NewBudgetSheet = (props) => {
             id="budget-total"
             step="any"
             value={budgetTotal}
+            required
           />
         </div>
         <div className="add-categories">
-          <h3>Add categories</h3>
-
+          <label htmlFor="">Enter a category</label>
           <div className="field">
-            <label htmlFor="" className="sr-only">
-              Enter a category
-            </label>
             <input
               value={categoriesInput}
               onChange={handleCategoryInput}
               type="text"
             />
-            <button onClick={handleAddCategoryClick}>Add</button>
+            <button
+              onClick={handleAddCategoryClick}
+              className="ui button green"
+            >
+              Add
+            </button>
           </div>
 
-          <div>
-            <ul>
-              {categoriesArray.map((category) => {
-                return (
-                  <li key={category} id={category}>
-                    {category}
-                    <button onClick={(e)=>handleRemoveCategoryClick(e, category)}>remove</button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          {categoriesArray.length > 0 ? (
+            <>
+              <div className="ui segment category-list">
+                {categoriesArray.map((category, index) => {
+                  return (
+                    <div
+                      key={`${category}+${index}`}
+                      id={category}
+                      className="category-list-item ui segment"
+                    >
+                      {category}
+                      <button
+                        onClick={(e) => handleRemoveCategoryClick(e, category)}
+                        className="ui button red"
+                      >
+                        remove
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </div>
 
-        <button className="ui button submit-button">Submit</button>
+        <button className="ui button primary submit-button">Create</button>
       </form>
+
+      <div
+        class={`ui segment ${isDuplicateCategory ? '' : 'hidden'} error-modal`}
+      >
+        <p>
+          Your inbox is getting full, would you like us to enable automatic
+          archiving of old messages?
+        </p>
+
+        <div class="ui green ok inverted button">
+          <i class="checkmark icon"></i>
+          Ok
+        </div>
+      </div>
     </div>
   );
 };

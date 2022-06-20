@@ -20,7 +20,7 @@ const BudgetOverview = (props) => {
   };
 
   return (
-    <div className="budgetOverview">
+    <div className="budgetOverview ui segment">
       {/* DIFFERENT ROWS OF THINGS */}
 
       <div className="budgetCap">
@@ -29,17 +29,19 @@ const BudgetOverview = (props) => {
           {!isEditing ? (
             `$${props.budgetCap.toLocaleString('en-US')}`
           ) : (
-            <input
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  editBudgetCaps();
-                }
-              }}
-              onChange={handleChange}
-              value={newBudgetCap || ''}
-              autoFocus="autofocus"
-              type="number"
-            />
+            <div className="ui input">
+              <input
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    editBudgetCaps();
+                  }
+                }}
+                onChange={handleChange}
+                value={newBudgetCap || ''}
+                autoFocus="autofocus"
+                type="number"
+              />
+            </div>
           )}
         </p>
       </div>
@@ -55,9 +57,13 @@ const BudgetOverview = (props) => {
       </div>
 
       {!isEditing ? (
-        <button onClick={() => setIsEditing(true)}>Edit Budget Cap</button>
+        <button onClick={() => setIsEditing(true)} className="ui button">
+          Edit Budget Cap
+        </button>
       ) : (
-        <button onClick={() => editBudgetCaps()}>Confirm</button>
+        <button onClick={() => editBudgetCaps()} className="ui button">
+          Confirm
+        </button>
       )}
     </div>
   );

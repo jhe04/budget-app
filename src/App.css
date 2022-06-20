@@ -217,9 +217,10 @@ ul {
 a {
   text-decoration: none;
   color: black;
+  padding: 10px 30px;
 }
 a:hover {
-  color: red;
+  all: none;
 }
 
 .container {
@@ -236,6 +237,10 @@ h2 {
   text-align: center;
 }
 
+.hidden {
+  display: none;
+}
+
 /* nav bar */
 nav {
   display: flex;
@@ -246,10 +251,6 @@ nav {
   display: flex;
   justify-content: flex-end;
   column-gap: 50px;
-}
-
-.nav-links a {
-  padding: 20px;
 }
 
 /* Homepage */
@@ -265,15 +266,28 @@ nav {
   transform: translate(-50%, -50%);
 }
 
+.homepage-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
 /* Displaying specific sheet */
 
 .newEntryForm,
 .budgetOverview {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .budgetOverview {
+  align-items: center;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -296,4 +310,10 @@ nav {
 
 .create-new-sheet .submit-button {
   margin-top: 20px;
+}
+
+.category-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
