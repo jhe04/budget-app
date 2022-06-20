@@ -134,7 +134,7 @@ const NewBudgetSheet = (props) => {
         <button className="ui button primary submit-button">Create</button>
       </form>
 
-      <div class={`ui segment error-modal`}>
+      {/* <div class={`ui segment error-modal`}>
         <p>
           Your inbox is getting full, would you like us to enable automatic
           archiving of old messages?
@@ -144,7 +144,7 @@ const NewBudgetSheet = (props) => {
           <i class="checkmark icon"></i>
           Ok
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
