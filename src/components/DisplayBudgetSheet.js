@@ -68,14 +68,12 @@ const BudgetSheet = (props) => {
     e.preventDefault();
     const database = getDatabase(firebase);
     const entryRef = ref(database, `/${sheetId}/budgetEntries`);
-    if (amount && category) {
-      push(entryRef, {
-        amount: amount,
-        category: category,
-        date: date,
-        description: description,
-      });
-    }
+    push(entryRef, {
+      amount: amount,
+      category: category,
+      date: date,
+      description: description,
+    });
   };
 
   //remove specific budget entry
@@ -83,6 +81,15 @@ const BudgetSheet = (props) => {
     const database = getDatabase(firebase);
     const removeRef = ref(database, `/${sheetId}/budgetEntries/${key}`);
     remove(removeRef);
+  };
+
+  //add new category
+  const addNewCategory = (category) => {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database, `/${sheetId}`);
+    const newCategories = [...categories];
+    newCategories.push(category);
+    update(dbRef, { categories: newCategories });
   };
 
   return (
@@ -98,6 +105,7 @@ const BudgetSheet = (props) => {
       <NewBudgetEntryForm
         handleSubmit={handleNewEntrySubmit}
         categories={categories}
+        addNewCategory={addNewCategory}
       />
 
       <DisplayBudgetEntries data={entries} removeEntry={removeEntry} />

@@ -8,9 +8,6 @@ import Homepage from './components/Homepage';
 import DisplayBudgetSheet from './components/DisplayBudgetSheet';
 
 function App() {
-  const arr = ['Jun 14, 2022', 'Jun 25, 2022', 'May 25, 2022', 'Jul 10, 2022'];
-  console.log(arr);
-
   return (
     <div className="App">
       <header>

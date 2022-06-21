@@ -2,6 +2,7 @@ import { useState } from 'react';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
+import WarningModal from './WarningModal';
 
 const NewBudgetSheet = (props) => {
   const database = getDatabase(firebase);
@@ -11,7 +12,9 @@ const NewBudgetSheet = (props) => {
   const [budgetTotal, setBudgetTotal] = useState('');
   const [categoriesInput, setCategoriesInput] = useState('');
   const [categoriesArray, setCategoriesArray] = useState([]);
+  const [isWarning, setIsWarning] = useState(false);
 
+  // Forms
   const handleNameInputChange = (e) => {
     setName(e.target.value);
   };
@@ -24,19 +27,28 @@ const NewBudgetSheet = (props) => {
 
   const handleSubmit = (e, budgetAmount, nameOfSheet, categories) => {
     e.preventDefault();
-    const newBudgetSheet = {
-      budgetCap: budgetAmount,
-      name: nameOfSheet,
-      categories: categories,
-    };
+    if (categories.length === 0) {
+      setIsWarning(true);
+    } else {
+      const newBudgetSheet = {
+        budgetCap: budgetAmount,
+        name: nameOfSheet,
+        categories: categories,
+      };
 
-    push(dbRef, newBudgetSheet).then((res) => {
-      setName('');
-      setBudgetTotal('');
-      navigate(`../budget-sheets/${res.key}`);
-    });
+      push(dbRef, newBudgetSheet).then((res) => {
+        setName('');
+        setBudgetTotal('');
+        navigate(`../budget-sheets/${res.key}`);
+      });
+    }
   };
 
+  const closeModal = () => {
+    setIsWarning(false);
+  };
+
+  // categories
   const handleCategoryInput = (e) => {
     setCategoriesInput(e.target.value);
   };
@@ -133,18 +145,9 @@ const NewBudgetSheet = (props) => {
 
         <button className="ui button primary submit-button">Create</button>
       </form>
-
-      {/* <div class={`ui segment error-modal`}>
-        <p>
-          Your inbox is getting full, would you like us to enable automatic
-          archiving of old messages?
-        </p>
-
-        <div class="ui green ok inverted button">
-          <i class="checkmark icon"></i>
-          Ok
-        </div>
-      </div> */}
+      <WarningModal isWarning={isWarning} closeModal={closeModal}>
+        <h3>Please enter at least one category</h3>
+      </WarningModal>
     </div>
   );
 };
