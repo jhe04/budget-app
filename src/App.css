@@ -367,9 +367,12 @@ nav a:focus {
 }
 
 /* Homepage */
+
+main {
+}
+
 .homepage {
   text-align: center;
-  position: relative;
 }
 
 .homepage {
@@ -543,4 +546,20 @@ table tr:last-child td {
 .delete-modal-buttons {
   display: flex;
   column-gap: 10px;
+}
+
+/* footer */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.footer a {
+  transition: all 0.3s;
+}
+.footer a:hover {
+  color: #1e70bf;
 }

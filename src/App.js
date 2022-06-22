@@ -6,6 +6,7 @@ import CreateNewBudgetSheet from './components/CreateNewBudgetSheet';
 import DisplayAllBudgetSheets from './components/DisplayAllBudgetSheets';
 import Homepage from './components/Homepage';
 import DisplayBudgetSheet from './components/DisplayBudgetSheet';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -29,7 +30,15 @@ function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Homepage />
+              <Footer />
+            </>
+          }
+        />
         <Route path="new-budget-sheet" element={<CreateNewBudgetSheet />} />
         <Route path="budget-sheets/*" element={<DisplayAllBudgetSheets />}>
           <Route path=":sheetId" element={<DisplayBudgetSheet />} />

@@ -72,96 +72,105 @@ const NewBudgetSheet = (props) => {
   };
 
   return (
-    <div className="container">
-      <h2>New Budget Sheet</h2>
-      <div className="segment instructions">
-        <h3>Instructions</h3>
-        <p>Please ensure all fields are filled out.</p>
-        <p>
-          Come up with a name for your budget sheet (e.g. Camping Trip or June
-          Budget), and set a cap for your budget (this can be edited later on).
-        </p>
-        <p>
-          Enter the categories or type of expenses for your budget entries. Please enter one category at a time nad click 'Add'.
-        </p>
-        <p>
-        Examples of categories: Discretionary, Groceries, Fixed Expenses, Restaurants, etc. (you can add more categories later on, but we suggest you start with at least 3). This is not to be confused with a description of an individual expense (ie. McDonald's meal)
-        </p>
-      </div>
-      <form
-        action=""
-        onSubmit={(e) => {
-          handleSubmit(e, budgetTotal, name, categoriesArray);
-        }}
-        className="create-new-sheet"
-      >
-        <div className=" field">
-          <label htmlFor="budget-name">Name of sheet</label>
-          <input
-            onChange={handleNameInputChange}
-            type="text"
-            id="budget-name"
-            value={name}
-            required
-          />
+    <main>
+      <div className="container">
+        <h2>New Budget Sheet</h2>
+        <div className="segment instructions">
+          <h3>Instructions</h3>
+          <p>Please ensure all fields are filled out.</p>
+          <p>
+            Come up with a name for your budget sheet (e.g. Camping Trip or June
+            Budget), and set a cap for your budget (this can be edited later
+            on).
+          </p>
+          <p>
+            Enter the categories or type of expenses for your budget entries.
+            Please enter one category at a time nad click 'Add'.
+          </p>
+          <p>
+            Examples of categories: Discretionary, Groceries, Fixed Expenses,
+            Restaurants, etc. (you can add more categories later on, but we
+            suggest you start with at least 3). This is not to be confused with
+            a description of an individual expense (ie. McDonald's meal)
+          </p>
         </div>
-        <div className=" field">
-          <label htmlFor="budget-total">Enter total budget</label>
-          <input
-            onChange={handleBudgetInputChange}
-            type="number"
-            id="budget-total"
-            step="any"
-            value={budgetTotal}
-            required
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="">Enter a category</label>
-          <div className="add-categories">
+        <form
+          action=""
+          onSubmit={(e) => {
+            handleSubmit(e, budgetTotal, name, categoriesArray);
+          }}
+          className="create-new-sheet"
+        >
+          <div className=" field">
+            <label htmlFor="budget-name">Name of sheet</label>
             <input
-              value={categoriesInput}
-              onChange={handleCategoryInput}
+              onChange={handleNameInputChange}
               type="text"
+              id="budget-name"
+              value={name}
+              required
             />
-            <button onClick={handleAddCategoryClick} className="button green">
-              Add
-            </button>
+          </div>
+          <div className=" field">
+            <label htmlFor="budget-total">Enter total budget</label>
+            <input
+              onChange={handleBudgetInputChange}
+              type="number"
+              id="budget-total"
+              step="any"
+              value={budgetTotal}
+              required
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="">Enter a category</label>
+            <div className="add-categories">
+              <input
+                value={categoriesInput}
+                onChange={handleCategoryInput}
+                type="text"
+              />
+              <button onClick={handleAddCategoryClick} className="button green">
+                Add
+              </button>
+            </div>
+
+            {categoriesArray.length > 0 ? (
+              <>
+                <div className=" category-list">
+                  {categoriesArray.map((category, index) => {
+                    return (
+                      <div
+                        key={`${category}+${index}`}
+                        id={category}
+                        className="category-list-item"
+                      >
+                        {category}
+                        <button
+                          onClick={(e) =>
+                            handleRemoveCategoryClick(e, category)
+                          }
+                          className="button red"
+                        >
+                          remove
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              ''
+            )}
           </div>
 
-          {categoriesArray.length > 0 ? (
-            <>
-              <div className=" category-list">
-                {categoriesArray.map((category, index) => {
-                  return (
-                    <div
-                      key={`${category}+${index}`}
-                      id={category}
-                      className="category-list-item"
-                    >
-                      {category}
-                      <button
-                        onClick={(e) => handleRemoveCategoryClick(e, category)}
-                        className="button red"
-                      >
-                        remove
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            ''
-          )}
-        </div>
-
-        <button className="submit-button button blue">Create</button>
-      </form>
-      <WarningModal isWarning={isWarning} closeModal={closeModal}>
-        <h3>Please enter at least one category</h3>
-      </WarningModal>
-    </div>
+          <button className="submit-button button blue">Create</button>
+        </form>
+        <WarningModal isWarning={isWarning} closeModal={closeModal}>
+          <h3>Please enter at least one category</h3>
+        </WarningModal>
+      </div>
+    </main>
   );
 };
 

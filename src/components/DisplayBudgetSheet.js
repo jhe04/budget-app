@@ -93,23 +93,25 @@ const BudgetSheet = (props) => {
   };
 
   return (
-    <div className="container">
-      <h2>{name}</h2>
+    <main>
+      <div className="container">
+        <h2>{name}</h2>
 
-      <BudgetOverview
-        budgetCap={budgetCap}
-        totalSpending={totalSpending}
-        editBudgetCap={editBudgetCap}
-      />
+        <BudgetOverview
+          budgetCap={budgetCap}
+          totalSpending={totalSpending}
+          editBudgetCap={editBudgetCap}
+        />
 
-      <NewBudgetEntryForm
-        handleSubmit={handleNewEntrySubmit}
-        categories={categories}
-        addNewCategory={addNewCategory}
-      />
+        <NewBudgetEntryForm
+          handleSubmit={handleNewEntrySubmit}
+          categories={categories}
+          addNewCategory={addNewCategory}
+        />
 
-      <DisplayBudgetEntries data={entries} removeEntry={removeEntry} />
-    </div>
+        <DisplayBudgetEntries data={entries} removeEntry={removeEntry} />
+      </div>
+    </main>
   );
 };
 

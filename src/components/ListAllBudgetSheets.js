@@ -50,7 +50,7 @@ const ListAllBudgetSheets = () => {
   };
 
   return (
-    <>
+    <main>
       <div className="container list-all-budget-sheets">
         <h2>Budget Sheet List</h2>
         <ul>
@@ -108,7 +108,7 @@ const ListAllBudgetSheets = () => {
           deleteSheetName={deleteSheetName}
         />
       </div>
-    </>
+    </main>
   );
 };
 
