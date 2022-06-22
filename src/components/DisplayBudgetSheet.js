@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import NewBudgetEntryForm from './NewBudgetEntryForm';
 import DisplayBudgetEntries from './DisplayBudgetEntries';
 import BudgetOverview from './BudgetOverview';
+import WarningModal from './WarningModal';
 
 const BudgetSheet = (props) => {
   //states
@@ -22,6 +23,7 @@ const BudgetSheet = (props) => {
   const [totalSpending, setTotalSpending] = useState('');
   const [name, setName] = useState('');
   const [categories, setCategories] = useState('');
+  const [isDuplicateCategory, setIsDuplicateCategory] = useState(false);
 
   useEffect(() => {
     const database = getDatabase(firebase);
@@ -88,8 +90,18 @@ const BudgetSheet = (props) => {
     const database = getDatabase(firebase);
     const dbRef = ref(database, `/${sheetId}`);
     const newCategories = [...categories];
+    if (newCategories.includes(category)) {
+      setIsDuplicateCategory(true);
+      console.log('duplicate');
+      return;
+    }
     newCategories.push(category);
     update(dbRef, { categories: newCategories });
+  };
+
+  //close duplicate category warning modal
+  const closeDuplicateWarningModal = () => {
+    setIsDuplicateCategory(false);
   };
 
   return (
@@ -110,6 +122,12 @@ const BudgetSheet = (props) => {
         />
 
         <DisplayBudgetEntries data={entries} removeEntry={removeEntry} />
+        <WarningModal
+          isWarning={isDuplicateCategory}
+          closeModal={closeDuplicateWarningModal}
+        >
+          <h3>You have entered a duplicate category</h3>
+        </WarningModal>
       </div>
     </main>
   );

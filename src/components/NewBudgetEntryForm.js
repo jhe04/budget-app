@@ -43,10 +43,10 @@ const NewBudgetEntryForm = (props) => {
   const handleAddCategoryEnd = (e) => {
     e.preventDefault();
     setIsAddingCategory(false);
-    if (newCategory && newCategory !== ' ') {
-      props.addNewCategory(newCategory);
-      setNewCategory('');
+    if (newCategory.trim()) {
+      props.addNewCategory(newCategory.trim());
     }
+    setNewCategory('');
   };
 
   return (

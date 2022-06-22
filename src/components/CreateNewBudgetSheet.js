@@ -13,6 +13,7 @@ const NewBudgetSheet = (props) => {
   const [categoriesInput, setCategoriesInput] = useState('');
   const [categoriesArray, setCategoriesArray] = useState([]);
   const [isWarning, setIsWarning] = useState(false);
+  const [isDuplicateCategory, setIsDuplicateCategory] = useState(false);
 
   // Forms
   const handleNameInputChange = (e) => {
@@ -25,14 +26,14 @@ const NewBudgetSheet = (props) => {
 
   let navigate = useNavigate();
 
-  const handleSubmit = (e, budgetAmount, nameOfSheet, categories) => {
+  const handleSubmit = (e, nameOfSheet, budgetAmount, categories) => {
     e.preventDefault();
     if (categories.length === 0) {
       setIsWarning(true);
     } else {
       const newBudgetSheet = {
-        budgetCap: budgetAmount,
         name: nameOfSheet,
+        budgetCap: budgetAmount,
         categories: categories,
       };
 
@@ -48,6 +49,10 @@ const NewBudgetSheet = (props) => {
     setIsWarning(false);
   };
 
+  const closeDuplicateWarningModal = () => {
+    setIsDuplicateCategory(false);
+  }
+
   // categories
   const handleCategoryInput = (e) => {
     setCategoriesInput(e.target.value);
@@ -55,10 +60,20 @@ const NewBudgetSheet = (props) => {
 
   const handleAddCategoryClick = (e) => {
     e.preventDefault();
-    if (categoriesInput && categoriesInput !== ' ') {
+
+    if (categoriesArray.includes(categoriesInput.trim())) {
+      console.log('this is a duplicate');
+      setIsDuplicateCategory(true);
+      setCategoriesInput('');
+      return;
+    }
+
+    if (categoriesInput.trim()) {
       const newCategoriesArray = [...categoriesArray];
-      newCategoriesArray.push(categoriesInput);
+      newCategoriesArray.push(categoriesInput.trim());
       setCategoriesArray(newCategoriesArray);
+      setCategoriesInput('');
+    } else {
       setCategoriesInput('');
     }
   };
@@ -168,6 +183,9 @@ const NewBudgetSheet = (props) => {
         </form>
         <WarningModal isWarning={isWarning} closeModal={closeModal}>
           <h3>Please enter at least one category</h3>
+        </WarningModal>
+        <WarningModal isWarning={isDuplicateCategory} closeModal={closeDuplicateWarningModal}>
+          <h3>You have entered a duplicate category</h3>
         </WarningModal>
       </div>
     </main>
