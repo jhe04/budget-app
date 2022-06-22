@@ -66,26 +66,32 @@ const ListAllBudgetSheets = () => {
 
             //returning actual jsx
             return (
-              <li key={entry.id} className="ui segment budget-sheet-link">
+              <li key={entry.id} className="segment">
                 <div className="budget-sheet-link-overview">
                   <p>{entry.data.name}</p>
                   <p>Budget: ${entry.data.budgetCap.toLocaleString('en-US')}</p>
                   <p>Total Spent: ${total.toLocaleString('en-US')}</p>
                   <p>
-                    Remainder: $
-                    {(entry.data.budgetCap - total).toLocaleString('en-US')}
+                    Remainder:{' '}
+                    <span
+                      className={
+                        entry.data.budgetCap - total < 0 ? 'red-text' : ''
+                      }
+                    >
+                      ${(entry.data.budgetCap - total).toLocaleString('en-US')}
+                    </span>
                   </p>
                 </div>
-                <button className="ui button primary">
+                <button className="budget-sheet-link-button">
                   <Link
                     to={`/budget-sheets/${entry.id}`}
-                    className="budget-sheet-link"
+                    className="button blue"
                   >
                     View
                   </Link>
                 </button>
                 <button
-                  className="ui button red"
+                  className="button red budget-sheet-link-button"
                   onClick={() => handleDeleteClick(entry.id, entry.data.name)}
                 >
                   Delete Sheet

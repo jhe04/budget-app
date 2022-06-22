@@ -7,7 +7,7 @@ const DisplayBudgetEntry = ({ data, handleClick }) => {
         <td className="description">{data.description}</td>
         <td className="category">
           {data.category}
-          <button onClick={() => handleClick(data.id)} className="ui button">
+          <button onClick={() => handleClick(data.id)} className="button red">
             delete
           </button>
         </td>

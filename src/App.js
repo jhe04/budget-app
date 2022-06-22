@@ -9,7 +9,7 @@ import DisplayBudgetSheet from './components/DisplayBudgetSheet';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <header>
         <nav>
           <div className="main-title">
@@ -35,7 +35,7 @@ function App() {
           <Route path=":sheetId" element={<DisplayBudgetSheet />} />
         </Route>
       </Routes>
-    </div>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ const DisplayBudgetEntries = ({ data, removeEntry }) => {
   return (
     <>
       <h2>List of Entries</h2>
-      <table className="ui celled table">
+      <table className="">
         <thead>
           <tr>
             <th>Date</th>

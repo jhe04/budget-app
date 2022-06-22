@@ -20,16 +20,16 @@ const BudgetOverview = (props) => {
   };
 
   return (
-    <div className="budgetOverview ui segment">
+    <div className="budgetOverview segment">
       {/* DIFFERENT ROWS OF THINGS */}
 
       <div className="budgetCap">
-        <h2>Total Budget</h2>
+        <h3>Total Budget</h3>
         <p>
           {!isEditing ? (
             `$${props.budgetCap.toLocaleString('en-US')}`
           ) : (
-            <div className="ui input">
+            <div className="">
               <input
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
@@ -47,21 +47,21 @@ const BudgetOverview = (props) => {
       </div>
 
       <div className="currentSpending">
-        <h2>Total Spending</h2>
+        <h3>Total Spending</h3>
         <p>${props.totalSpending.toLocaleString('en-US')}</p>
       </div>
 
       <div className="remainder">
-        <h2>Remainder</h2>
-        <p>${remainder.toLocaleString('en-US')}</p>
+        <h3>Remainder</h3>
+        <p className={remainder < 0 ? 'red-text' : ''} >${remainder.toLocaleString('en-US')}</p>
       </div>
 
       {!isEditing ? (
-        <button onClick={() => setIsEditing(true)} className="ui button">
+        <button onClick={() => setIsEditing(true)} className="button blue">
           Edit Budget Cap
         </button>
       ) : (
-        <button onClick={() => editBudgetCaps()} className="ui button">
+        <button onClick={() => editBudgetCaps()} className="button green">
           Confirm
         </button>
       )}

@@ -43,7 +43,7 @@ const NewBudgetEntryForm = (props) => {
   const handleAddCategoryEnd = (e) => {
     e.preventDefault();
     setIsAddingCategory(false);
-    if (newCategory) {
+    if (newCategory && newCategory !== ' ') {
       props.addNewCategory(newCategory);
       setNewCategory('');
     }
@@ -52,7 +52,7 @@ const NewBudgetEntryForm = (props) => {
   return (
     <>
       <form
-        className="newEntryForm ui form segment"
+        className="newEntryForm segment"
         onSubmit={(e) => {
           e.preventDefault();
           if (amount && category && description) {
@@ -73,6 +73,7 @@ const NewBudgetEntryForm = (props) => {
             type="number"
             id="amount"
             step="any"
+            disabled={isAddingCategory ? true : false}
           />
         </div>
 
@@ -83,6 +84,7 @@ const NewBudgetEntryForm = (props) => {
             onChange={handleDescriptionChange}
             type="text"
             id="description"
+            disabled={isAddingCategory ? true : false}
           />
         </div>
 
@@ -102,13 +104,13 @@ const NewBudgetEntryForm = (props) => {
             <select
               onChange={handleCategoryChange}
               value={category}
-              name=""
+              name="category"
               id="category"
             >
               <option disabled value="">
                 Select an option:
               </option>
-              {/* this is to account for the async data loading after my component renders */}
+              {/* this is to account for the async data loading after component renders */}
               {props.categories && props.categories.length > 0
                 ? props.categories.map((category) => {
                     return (
@@ -122,14 +124,14 @@ const NewBudgetEntryForm = (props) => {
           </div>
         )}
 
-        <div>
-          <button className="ui button">Submit</button>
+        <div className="new-entry-buttons">
+          <button className="button green">Submit</button>
           {isAddingCategory ? (
-            <button className="ui button" onClick={handleAddCategoryEnd}>
+            <button className="button green" onClick={handleAddCategoryEnd}>
               Confirm
             </button>
           ) : (
-            <button className="ui button" onClick={handleAddCategoryStart}>
+            <button className="button blue" onClick={handleAddCategoryStart}>
               Add Category
             </button>
           )}

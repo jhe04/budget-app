@@ -55,10 +55,12 @@ const NewBudgetSheet = (props) => {
 
   const handleAddCategoryClick = (e) => {
     e.preventDefault();
-    const newCategoriesArray = [...categoriesArray];
-    newCategoriesArray.push(categoriesInput);
-    setCategoriesArray(newCategoriesArray);
-    setCategoriesInput('');
+    if (categoriesInput && categoriesInput !== ' ') {
+      const newCategoriesArray = [...categoriesArray];
+      newCategoriesArray.push(categoriesInput);
+      setCategoriesArray(newCategoriesArray);
+      setCategoriesInput('');
+    }
   };
 
   const handleRemoveCategoryClick = (e, categoryName) => {
@@ -70,16 +72,16 @@ const NewBudgetSheet = (props) => {
   };
 
   return (
-    <div className=" container">
+    <div className="container">
       <h2>New Budget Sheet</h2>
       <form
         action=""
         onSubmit={(e) => {
           handleSubmit(e, budgetTotal, name, categoriesArray);
         }}
-        className="ui form create-new-sheet"
+        className="create-new-sheet"
       >
-        <div className="field">
+        <div className=" field">
           <label htmlFor="budget-name">Name of sheet</label>
           <input
             onChange={handleNameInputChange}
@@ -89,7 +91,7 @@ const NewBudgetSheet = (props) => {
             required
           />
         </div>
-        <div className="field">
+        <div className=" field">
           <label htmlFor="budget-total">Enter total budget</label>
           <input
             onChange={handleBudgetInputChange}
@@ -100,36 +102,33 @@ const NewBudgetSheet = (props) => {
             required
           />
         </div>
-        <div className="add-categories">
+        <div className="field">
           <label htmlFor="">Enter a category</label>
-          <div className="field">
+          <div className="add-categories">
             <input
               value={categoriesInput}
               onChange={handleCategoryInput}
               type="text"
             />
-            <button
-              onClick={handleAddCategoryClick}
-              className="ui button green"
-            >
+            <button onClick={handleAddCategoryClick} className="button green">
               Add
             </button>
           </div>
 
           {categoriesArray.length > 0 ? (
             <>
-              <div className="ui segment category-list">
+              <div className=" category-list">
                 {categoriesArray.map((category, index) => {
                   return (
                     <div
                       key={`${category}+${index}`}
                       id={category}
-                      className="category-list-item ui segment"
+                      className="category-list-item"
                     >
                       {category}
                       <button
                         onClick={(e) => handleRemoveCategoryClick(e, category)}
-                        className="ui button red"
+                        className="button red"
                       >
                         remove
                       </button>
@@ -143,7 +142,7 @@ const NewBudgetSheet = (props) => {
           )}
         </div>
 
-        <button className="ui button primary submit-button">Create</button>
+        <button className="submit-button button blue">Create</button>
       </form>
       <WarningModal isWarning={isWarning} closeModal={closeModal}>
         <h3>Please enter at least one category</h3>

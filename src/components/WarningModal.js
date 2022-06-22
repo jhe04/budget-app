@@ -6,18 +6,11 @@ const WarningModal = (props) => {
   return ReactDom.createPortal(
     <>
       <div className="modal-overlay"></div>
-      <div className="ui cards confirm-modal">
-        <div className="card">
-          <div className="content">
-            <div className="description">
-              {props.children}
-            </div>
-          </div>
-          <div className="extra content">
-            <div className="ui basic green button" onClick={props.closeModal}>
-              Ok
-            </div>
-          </div>
+
+      <div className="confirm-modal">
+        <div className="content">{props.children}</div>
+        <div className="button green" onClick={props.closeModal}>
+          Ok
         </div>
       </div>
     </>,
