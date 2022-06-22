@@ -74,6 +74,20 @@ const NewBudgetSheet = (props) => {
   return (
     <div className="container">
       <h2>New Budget Sheet</h2>
+      <div className="segment instructions">
+        <h3>Instructions</h3>
+        <p>Please ensure all fields are filled out.</p>
+        <p>
+          Come up with a name for your budget sheet (e.g. Camping Trip or June
+          Budget), and set a cap for your budget (this can be edited later on).
+        </p>
+        <p>
+          Enter the categories or type of expenses for your budget entries. Please enter one category at a time nad click 'Add'.
+        </p>
+        <p>
+        Examples of categories: Discretionary, Groceries, Fixed Expenses, Restaurants, etc. (you can add more categories later on, but we suggest you start with at least 3). This is not to be confused with a description of an individual expense (ie. McDonald's meal)
+        </p>
+      </div>
       <form
         action=""
         onSubmit={(e) => {

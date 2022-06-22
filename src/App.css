@@ -439,6 +439,11 @@ nav a:focus {
   padding: 10px;
 }
 
+.instructions {
+  width: 60%;
+  margin: 1rem auto;
+}
+
 /* ListAllBudgetSheets */
 .budget-sheet-link-overview {
   display: flex;
