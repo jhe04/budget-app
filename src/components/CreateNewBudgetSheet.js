@@ -51,7 +51,7 @@ const NewBudgetSheet = (props) => {
 
   const closeDuplicateWarningModal = () => {
     setIsDuplicateCategory(false);
-  }
+  };
 
   // categories
   const handleCategoryInput = (e) => {
@@ -112,7 +112,7 @@ const NewBudgetSheet = (props) => {
         <form
           action=""
           onSubmit={(e) => {
-            handleSubmit(e, budgetTotal, name, categoriesArray);
+            handleSubmit(e, name, budgetTotal, categoriesArray);
           }}
           className="create-new-sheet"
         >
@@ -184,7 +184,10 @@ const NewBudgetSheet = (props) => {
         <WarningModal isWarning={isWarning} closeModal={closeModal}>
           <h3>Please enter at least one category</h3>
         </WarningModal>
-        <WarningModal isWarning={isDuplicateCategory} closeModal={closeDuplicateWarningModal}>
+        <WarningModal
+          isWarning={isDuplicateCategory}
+          closeModal={closeDuplicateWarningModal}
+        >
           <h3>You have entered a duplicate category</h3>
         </WarningModal>
       </div>
